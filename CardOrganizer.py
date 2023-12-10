@@ -2,6 +2,12 @@ import tkinter as tk
 from tkinter import messagebox
 import json
 
+class Card:
+    def __init__(self, name, rarity, WUBRG)
+        self.name = name
+        self.rarity = rarity
+        self.WUBRG = WUBRG
+
 class CardApp:
     def __init__(self, root):
         self.root = root
