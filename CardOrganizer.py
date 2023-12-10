@@ -26,6 +26,29 @@ class CardManager:
             data = [{"name": card.name, "rarity": card.rarity, "WUBRG": card.WUBRG} for card in self.cards]
             json.dump(data, file, indent=2)
 
+    def create_card(self, name, rarity, WUBRG):
+        card = Card(name, rarity, WUBRG)
+        self.cards.append(card)
+        messagebox.showinfo("Success", "Card Added Successfully")
+
+    def display_all_cards(self):
+        return self.cards
+    
+    def search_card(self, key_attribute, non_key_attribute):
+        found_cards = [card for card in self.cards if getattr(card, key_attribute, None) == non_key_attribute]
+        return found_cards
+    
+    def update_card(self, name, new_rarity, new_WUBRG):
+        for card in self.cards:
+            if card.name == name:
+                card.rarity = new_rarity
+                card.WUBRG = new_WUBRG
+                messagebox.showinfo("Success", f"{name} updated successfully" )
+    
+    def delete_card(self, name):
+        self.cards = [card for card in self.cards if card.name != name]
+        messagebox.showinfo("Success", f"{name} deleted successfully")
+
 class CardApp:
     def __init__(self, root):
         self.root = root
