@@ -66,11 +66,11 @@ class CardApp:
         self.WUBRG_label = tk.Label(self.root, text="WUBRG: ")
         self.WUBRG_entry = tk.Entry(self.root)
 
-        self.create_button = tk.Button(self.root, text="Create")
-        self.search_button = tk.Button(self.root, text="Search")
-        self.update_button = tk.Button(self.root, text="Update")
-        self.delete_button = tk.Button(self.root, text="Delete")
-        self.display_all_button = tk.Button(self.root, text="Display All")
+        self.create_button = tk.Button(self.root, text="Create", command=self.create_card)
+        self.search_button = tk.Button(self.root, text="Search", command=self.search_card)
+        self.update_button = tk.Button(self.root, text="Update", command=self.update.card)
+        self.delete_button = tk.Button(self.root, text="Delete", command=self.delete_card)
+        self.display_all_button = tk.Button(self.root, text="Display All", command=self.display_all_cards)
 
         self.name_label.grid(row=0, column=0)
         self.name_entry.grid(row=0, column=1)
