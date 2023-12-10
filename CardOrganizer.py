@@ -128,3 +128,8 @@ class CardApp:
         for card in cards:
             result_text += f"Name: {card.name}, Rarity: {card.rarity}, WUBRG: {card.WUBRG}\n"
         messagebox.showinfo("Results", result_text)
+
+if __name__ == "__main__":
+    root = tk.Tk()
+    app = CardApp(root)
+    root.mainloop()
