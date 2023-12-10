@@ -8,6 +8,24 @@ class Card:
         self.rarity = rarity
         self.WUBRG = WUBRG
 
+class CardManager:
+    def __init__(self):
+        self.cards = []
+        self.load_data()
+
+    def load_data(self):
+        try:
+            with open("cards_data.json", "r") as file:
+                data = json.load(file)
+                self.cards = [Card(**card_data) for card_data in data]
+        except (json.JSONDecodeError, FileNotFoundError):
+            pass
+
+    def save_data(self):
+        with open("cards_data,json", "w") as file:
+            data = [{"name": card.name, "rarity": card.rarity, "WUBRG": card.WUBRG} for card in self.cards]
+            json.dump(data, file, indent=2)
+
 class CardApp:
     def __init__(self, root):
         self.root = root
