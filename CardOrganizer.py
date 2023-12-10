@@ -54,6 +54,8 @@ class CardApp:
         self.root = root
         self.root.title("Magic the Gathering Card Manager")
 
+        self.card_manager = CardManager()
+        
         self.create_widgets()
 
     def create_widgets(self):
