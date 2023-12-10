@@ -3,7 +3,7 @@ from tkinter import messagebox
 import json
 
 class Card:
-    def __init__(self, name, rarity, WUBRG)
+    def __init__(self, name, rarity, WUBRG):
         self.name = name
         self.rarity = rarity
         self.WUBRG = WUBRG
@@ -87,3 +87,44 @@ class CardApp:
         self.delete_button.grid(row=6, column=0, columnspan=2, pady=10)
         self.display_all_button.grid(row=7, column=0, columnspan=2, pady=10)
     
+    def create_card(self):
+        name = self.name_entry.get()
+        rarity = self.name_entry.get()
+        WUBRG = self.name_entry.get()
+
+        if name and rarity and WUBRG:
+            self.card_manager.create_card(name, rarity, WUBRG)
+            self.card_manager.save_data()
+        else:
+            messagebox.showinfo("Error", "Please fill in all boxes")
+
+    def search_card(self):
+        key_attribute = "name"
+        non_key_attribute = self.name_entry.get()
+
+        if non_key_attribute:
+            found_cards = self.card_manager.search_card(key_attribute, non_key_attribute)
+            self.display_results(found_cards)
+        else:
+            messagebox.showinfo("Error", "Please enter either Rarity or WUBRG")
+
+    def update_card(self):
+        name = self.name_entry.get()
+        new_rarity = self.rarity_entry.get()
+        new_WUBRG = self.WUBRG_entry.get()
+
+        if name:
+            self.card_manager.delete_card(name)
+            self.card_manager.save_data()
+        else:
+            messagebox.showinfo("Error", "Please enter a card name")
+
+    def display_all_cards(self):
+        all_cards = self.card_manager.display_all_cards()
+        self.display_results(all_cards)
+
+    def display_results(self):
+        result_text = ""
+        for card in cards:
+            result_text += f"Name: {card.name}, Rarity: {card.rarity}, WUBRG: {card.WUBRG}\n"
+        messagebox.showinfo("Results", result_text)
