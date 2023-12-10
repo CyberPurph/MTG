@@ -44,6 +44,7 @@ class CardManager:
                 card.rarity = new_rarity
                 card.WUBRG = new_WUBRG
                 messagebox.showinfo("Success", f"{name} updated successfully" )
+                break
     
     def delete_card(self, name):
         self.cards = [card for card in self.cards if card.name != name]
@@ -70,7 +71,7 @@ class CardApp:
 
         self.create_button = tk.Button(self.root, text="Create", command=self.create_card)
         self.search_button = tk.Button(self.root, text="Search", command=self.search_card)
-        self.update_button = tk.Button(self.root, text="Update", command=self.update.card)
+        self.update_button = tk.Button(self.root, text="Update", command=self.update_card)
         self.delete_button = tk.Button(self.root, text="Delete", command=self.delete_card)
         self.display_all_button = tk.Button(self.root, text="Display All", command=self.display_all_cards)
 
@@ -91,14 +92,14 @@ class CardApp:
     
     def create_card(self):
         name = self.name_entry.get()
-        rarity = self.name_entry.get()
-        WUBRG = self.name_entry.get()
+        rarity = self.rarity_entry.get()
+        WUBRG = self.WUBRG_entry.get()
 
         if name and rarity and WUBRG:
             self.card_manager.create_card(name, rarity, WUBRG)
             self.card_manager.save_data()
         else:
-            messagebox.showinfo("Error", "Please fill in all boxes")
+            messagebox.showerror("Error", "Please fill in all boxes")
 
     def search_card(self):
         key_attribute = "name"
@@ -108,24 +109,33 @@ class CardApp:
             found_cards = self.card_manager.search_card(key_attribute, non_key_attribute)
             self.display_results(found_cards)
         else:
-            messagebox.showinfo("Error", "Please enter either Rarity or WUBRG")
+            messagebox.showerror("Error", "Please enter either Rarity or WUBRG")
 
     def update_card(self):
         name = self.name_entry.get()
         new_rarity = self.rarity_entry.get()
         new_WUBRG = self.WUBRG_entry.get()
 
+        if name and new_rarity and new_WUBRG:
+            self.card_manager.update_card(name, new_rarity, new_WUBRG)
+            self.card_manager.save_data()
+        else:
+            messagebox.showerror("Error", "Please enter a card name")
+
+    def delete_card(self):
+        name = self.name_entry.get()
+
         if name:
             self.card_manager.delete_card(name)
             self.card_manager.save_data()
         else:
-            messagebox.showinfo("Error", "Please enter a card name")
+            messagebox.showerror("Error", "Please enter a card name you want to delete")
 
     def display_all_cards(self):
         all_cards = self.card_manager.display_all_cards()
         self.display_results(all_cards)
 
-    def display_results(self):
+    def display_results(self, cards):
         result_text = ""
         for card in cards:
             result_text += f"Name: {card.name}, Rarity: {card.rarity}, WUBRG: {card.WUBRG}\n"
